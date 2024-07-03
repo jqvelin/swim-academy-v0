@@ -3,14 +3,16 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import Link from "next/link"
 
+
 export default function Header(){
-    const [isHeaderStuckToTop, setIsHeaderStuckToTop] = useState(window.scrollY > 30)
+    const [isHeaderStuckToTop, setIsHeaderStuckToTop] = useState(false)
     useEffect(() => {
+        setIsHeaderStuckToTop(window.scrollY > 30)
         document.addEventListener('scroll', trackScrolling)
         return () => {
             document.removeEventListener('scroll', trackScrolling)
         }
-    })
+    }, [])
 
     function trackScrolling(){
         if (window.scrollY > 30) setIsHeaderStuckToTop(true)
@@ -25,7 +27,10 @@ export default function Header(){
             <Image src='/logo.png' width={0} height={0} sizes="100vw" className="w-14 md:w-16 aspect-square -ml-3" alt="Logo"/>
             <h1 className="font-bold text-sm md:text-lg uppercase">swim<br/>academy</h1>
         </Link>
-        <Link href='/sign-up' className="bg-blue-500 px-4 py-2 rounded-full transition-colors hover:bg-blue-600">{window.innerWidth < 720 ? 'Тренироваться' : 'Записаться на тренировку'}</Link>
+        <Link href='/sign-up' className="bg-blue-500 px-4 py-2 rounded-full transition-colors hover:bg-blue-600">
+            <div className="hidden md:flex">Записаться на тренировку</div>
+            <div className="flex md:hidden">Тренироваться</div>
+        </Link>
     </header>
     </>
 }
