@@ -9,7 +9,6 @@ export default function Homepage(){
     <Introduction/>
     <Pools/>
     <Inventory/>
-    <Coach/>
     <Outro/>
   </>
 }
